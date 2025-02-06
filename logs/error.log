@@ -1,0 +1,384 @@
+2025-01-18 16:36:24,500 - ERROR - server:241
+Error processing image: Message: 
+Stacktrace:
+	GetHandleVerifier [0x00007FF7543BFBE5+28741]
+	(No symbol) [0x00007FF754327890]
+	(No symbol) [0x00007FF7541C4FDA]
+	(No symbol) [0x00007FF754219322]
+	(No symbol) [0x00007FF75421954C]
+	(No symbol) [0x00007FF754263337]
+	(No symbol) [0x00007FF75423FF4F]
+	(No symbol) [0x00007FF7542600B4]
+	(No symbol) [0x00007FF75423FCB3]
+	(No symbol) [0x00007FF754209FB3]
+	(No symbol) [0x00007FF75420B331]
+	GetHandleVerifier [0x00007FF7546FA73D+3414941]
+	GetHandleVerifier [0x00007FF75470E64A+3496618]
+	GetHandleVerifier [0x00007FF75470413D+3454365]
+	GetHandleVerifier [0x00007FF75448848B+850155]
+	(No symbol) [0x00007FF7543337FF]
+	(No symbol) [0x00007FF75432F0C4]
+	(No symbol) [0x00007FF75432F25D]
+	(No symbol) [0x00007FF75431E079]
+	BaseThreadInitThunk [0x00007FF8B8F9E8D7+23]
+	RtlUserThreadStart [0x00007FF8BA99FBCC+44]
+
+
+2025-01-18 16:36:41,235 - ERROR - server:277
+Server error: unhandled errors in a TaskGroup (1 sub-exception)
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\stdio.py", line 83, in stdio_server
+  |     yield read_stream, write_stream
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\fastmcp\server.py", line 422, in run_stdio_async
+  |     await self._mcp_server.run(
+  |     ...<3 lines>...
+  |     )
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\lowlevel\server.py", line 428, in run
+  |     async with ServerSession(
+  |                ~~~~~~~~~~~~~^
+  |         read_stream, write_stream, initialization_options
+  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |     ) as session:
+  |     ^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\shared\session.py", line 122, in __aexit__
+  |     return await self._task_group.__aexit__(exc_type, exc_val, exc_tb)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 767, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     )
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\shared\session.py", line 235, in _receive_loop
+    |     notification = self._receive_notification_type.model_validate(
+    |         message.root.model_dump(
+    |             by_alias=True, mode="json", exclude_none=True
+    |         )
+    |     )
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\pydantic\main.py", line 627, in model_validate
+    |     return cls.__pydantic_validator__.validate_python(
+    |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+    |         obj, strict=strict, from_attributes=from_attributes, context=context
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    | pydantic_core._pydantic_core.ValidationError: 5 validation errors for ClientNotification
+    | ProgressNotification.method
+    |   Input should be 'notifications/progress' [type=literal_error, input_value='cancelled', input_type=str]
+    |     For further information visit https://errors.pydantic.dev/2.10/v/literal_error
+    | ProgressNotification.params.progressToken
+    |   Field required [type=missing, input_value={'requestId': 276, 'reaso... -2: Request timed out'}, input_type=dict]
+    |     For further information visit https://errors.pydantic.dev/2.10/v/missing
+    | ProgressNotification.params.progress
+    |   Field required [type=missing, input_value={'requestId': 276, 'reaso... -2: Request timed out'}, input_type=dict]
+    |     For further information visit https://errors.pydantic.dev/2.10/v/missing
+    | InitializedNotification.method
+    |   Input should be 'notifications/initialized' [type=literal_error, input_value='cancelled', input_type=str]
+    |     For further information visit https://errors.pydantic.dev/2.10/v/literal_error
+    | RootsListChangedNotification.method
+    |   Input should be 'notifications/roots/list_changed' [type=literal_error, input_value='cancelled', input_type=str]
+    |     For further information visit https://errors.pydantic.dev/2.10/v/literal_error
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+  + Exception Group Traceback (most recent call last):
+  |   File "D:\DJVIBE\MCP\mcp-image-downloader\server.py", line 272, in <module>
+  |     mcp.run()
+  |     ~~~~~~~^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\fastmcp\server.py", line 130, in run
+  |     anyio.run(self.run_stdio_async)
+  |     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_core\_eventloop.py", line 74, in run
+  |     return async_backend.run(func, args, {}, backend_options)
+  |            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 2303, in run
+  |     return runner.run(wrapper())
+  |            ~~~~~~~~~~^^^^^^^^^^^
+  |   File "C:\Python313\Lib\asyncio\runners.py", line 118, in run
+  |     return self._loop.run_until_complete(task)
+  |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  |   File "C:\Python313\Lib\asyncio\base_events.py", line 720, in run_until_complete
+  |     return future.result()
+  |            ~~~~~~~~~~~~~^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 2291, in wrapper
+  |     return await func(*args)
+  |            ^^^^^^^^^^^^^^^^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\fastmcp\server.py", line 421, in run_stdio_async
+  |     async with stdio_server() as (read_stream, write_stream):
+  |                ~~~~~~~~~~~~^^
+  |   File "C:\Python313\Lib\contextlib.py", line 235, in __aexit__
+  |     await self.gen.athrow(value)
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\stdio.py", line 80, in stdio_server
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 767, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     )
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\streams\memory.py", line 242, in send
+    |     self.send_nowait(item)
+    |     ~~~~~~~~~~~~~~~~^^^^^^
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\streams\memory.py", line 225, in send_nowait
+    |     raise WouldBlock
+    | anyio.WouldBlock
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\lowlevel\server.py", line 470, in run
+    |     await message.respond(response)
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\shared\session.py", line 58, in respond
+    |     await self._session._send_response(
+    |         request_id=self.request_id, response=response
+    |     )
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\shared\session.py", line 205, in _send_response
+    |     await self._write_stream.send(JSONRPCMessage(jsonrpc_response))
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\streams\memory.py", line 248, in send
+    |     await send_event.wait()
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 1766, in wait
+    |     await self._event.wait()
+    |   File "C:\Python313\Lib\asyncio\locks.py", line 213, in wait
+    |     await fut
+    | asyncio.exceptions.CancelledError: Cancelled by cancel scope 16511efa710
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Exception Group Traceback (most recent call last):
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\stdio.py", line 83, in stdio_server
+    |     yield read_stream, write_stream
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\fastmcp\server.py", line 422, in run_stdio_async
+    |     await self._mcp_server.run(
+    |     ...<3 lines>...
+    |     )
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\lowlevel\server.py", line 428, in run
+    |     async with ServerSession(
+    |                ~~~~~~~~~~~~~^
+    |         read_stream, write_stream, initialization_options
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ) as session:
+    |     ^
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\shared\session.py", line 122, in __aexit__
+    |     return await self._task_group.__aexit__(exc_type, exc_val, exc_tb)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 767, in __aexit__
+    |     raise BaseExceptionGroup(
+    |         "unhandled errors in a TaskGroup", self._exceptions
+    |     )
+    | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+    +-+---------------- 1 ----------------
+      | Traceback (most recent call last):
+      |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\shared\session.py", line 235, in _receive_loop
+      |     notification = self._receive_notification_type.model_validate(
+      |         message.root.model_dump(
+      |             by_alias=True, mode="json", exclude_none=True
+      |         )
+      |     )
+      |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\pydantic\main.py", line 627, in model_validate
+      |     return cls.__pydantic_validator__.validate_python(
+      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+      |         obj, strict=strict, from_attributes=from_attributes, context=context
+      |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |     )
+      |     ^
+      | pydantic_core._pydantic_core.ValidationError: 5 validation errors for ClientNotification
+      | ProgressNotification.method
+      |   Input should be 'notifications/progress' [type=literal_error, input_value='cancelled', input_type=str]
+      |     For further information visit https://errors.pydantic.dev/2.10/v/literal_error
+      | ProgressNotification.params.progressToken
+      |   Field required [type=missing, input_value={'requestId': 276, 'reaso... -2: Request timed out'}, input_type=dict]
+      |     For further information visit https://errors.pydantic.dev/2.10/v/missing
+      | ProgressNotification.params.progress
+      |   Field required [type=missing, input_value={'requestId': 276, 'reaso... -2: Request timed out'}, input_type=dict]
+      |     For further information visit https://errors.pydantic.dev/2.10/v/missing
+      | InitializedNotification.method
+      |   Input should be 'notifications/initialized' [type=literal_error, input_value='cancelled', input_type=str]
+      |     For further information visit https://errors.pydantic.dev/2.10/v/literal_error
+      | RootsListChangedNotification.method
+      |   Input should be 'notifications/roots/list_changed' [type=literal_error, input_value='cancelled', input_type=str]
+      |     For further information visit https://errors.pydantic.dev/2.10/v/literal_error
+      +------------------------------------
+2025-01-18 16:36:41,408 - ERROR - server:279
+Detailed traceback:
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\stdio.py", line 83, in stdio_server
+  |     yield read_stream, write_stream
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\fastmcp\server.py", line 422, in run_stdio_async
+  |     await self._mcp_server.run(
+  |     ...<3 lines>...
+  |     )
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\lowlevel\server.py", line 428, in run
+  |     async with ServerSession(
+  |                ~~~~~~~~~~~~~^
+  |         read_stream, write_stream, initialization_options
+  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |     ) as session:
+  |     ^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\shared\session.py", line 122, in __aexit__
+  |     return await self._task_group.__aexit__(exc_type, exc_val, exc_tb)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 767, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     )
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\shared\session.py", line 235, in _receive_loop
+    |     notification = self._receive_notification_type.model_validate(
+    |         message.root.model_dump(
+    |             by_alias=True, mode="json", exclude_none=True
+    |         )
+    |     )
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\pydantic\main.py", line 627, in model_validate
+    |     return cls.__pydantic_validator__.validate_python(
+    |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+    |         obj, strict=strict, from_attributes=from_attributes, context=context
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    | pydantic_core._pydantic_core.ValidationError: 5 validation errors for ClientNotification
+    | ProgressNotification.method
+    |   Input should be 'notifications/progress' [type=literal_error, input_value='cancelled', input_type=str]
+    |     For further information visit https://errors.pydantic.dev/2.10/v/literal_error
+    | ProgressNotification.params.progressToken
+    |   Field required [type=missing, input_value={'requestId': 276, 'reaso... -2: Request timed out'}, input_type=dict]
+    |     For further information visit https://errors.pydantic.dev/2.10/v/missing
+    | ProgressNotification.params.progress
+    |   Field required [type=missing, input_value={'requestId': 276, 'reaso... -2: Request timed out'}, input_type=dict]
+    |     For further information visit https://errors.pydantic.dev/2.10/v/missing
+    | InitializedNotification.method
+    |   Input should be 'notifications/initialized' [type=literal_error, input_value='cancelled', input_type=str]
+    |     For further information visit https://errors.pydantic.dev/2.10/v/literal_error
+    | RootsListChangedNotification.method
+    |   Input should be 'notifications/roots/list_changed' [type=literal_error, input_value='cancelled', input_type=str]
+    |     For further information visit https://errors.pydantic.dev/2.10/v/literal_error
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+  + Exception Group Traceback (most recent call last):
+  |   File "D:\DJVIBE\MCP\mcp-image-downloader\server.py", line 272, in <module>
+  |     mcp.run()
+  |     ~~~~~~~^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\fastmcp\server.py", line 130, in run
+  |     anyio.run(self.run_stdio_async)
+  |     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_core\_eventloop.py", line 74, in run
+  |     return async_backend.run(func, args, {}, backend_options)
+  |            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 2303, in run
+  |     return runner.run(wrapper())
+  |            ~~~~~~~~~~^^^^^^^^^^^
+  |   File "C:\Python313\Lib\asyncio\runners.py", line 118, in run
+  |     return self._loop.run_until_complete(task)
+  |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  |   File "C:\Python313\Lib\asyncio\base_events.py", line 720, in run_until_complete
+  |     return future.result()
+  |            ~~~~~~~~~~~~~^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 2291, in wrapper
+  |     return await func(*args)
+  |            ^^^^^^^^^^^^^^^^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\fastmcp\server.py", line 421, in run_stdio_async
+  |     async with stdio_server() as (read_stream, write_stream):
+  |                ~~~~~~~~~~~~^^
+  |   File "C:\Python313\Lib\contextlib.py", line 235, in __aexit__
+  |     await self.gen.athrow(value)
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\stdio.py", line 80, in stdio_server
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 767, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     )
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\streams\memory.py", line 242, in send
+    |     self.send_nowait(item)
+    |     ~~~~~~~~~~~~~~~~^^^^^^
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\streams\memory.py", line 225, in send_nowait
+    |     raise WouldBlock
+    | anyio.WouldBlock
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\lowlevel\server.py", line 470, in run
+    |     await message.respond(response)
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\shared\session.py", line 58, in respond
+    |     await self._session._send_response(
+    |         request_id=self.request_id, response=response
+    |     )
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\shared\session.py", line 205, in _send_response
+    |     await self._write_stream.send(JSONRPCMessage(jsonrpc_response))
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\streams\memory.py", line 248, in send
+    |     await send_event.wait()
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 1766, in wait
+    |     await self._event.wait()
+    |   File "C:\Python313\Lib\asyncio\locks.py", line 213, in wait
+    |     await fut
+    | asyncio.exceptions.CancelledError: Cancelled by cancel scope 16511efa710
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Exception Group Traceback (most recent call last):
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\stdio.py", line 83, in stdio_server
+    |     yield read_stream, write_stream
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\fastmcp\server.py", line 422, in run_stdio_async
+    |     await self._mcp_server.run(
+    |     ...<3 lines>...
+    |     )
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\server\lowlevel\server.py", line 428, in run
+    |     async with ServerSession(
+    |                ~~~~~~~~~~~~~^
+    |         read_stream, write_stream, initialization_options
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ) as session:
+    |     ^
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\shared\session.py", line 122, in __aexit__
+    |     return await self._task_group.__aexit__(exc_type, exc_val, exc_tb)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 767, in __aexit__
+    |     raise BaseExceptionGroup(
+    |         "unhandled errors in a TaskGroup", self._exceptions
+    |     )
+    | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+    +-+---------------- 1 ----------------
+      | Traceback (most recent call last):
+      |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\mcp\shared\session.py", line 235, in _receive_loop
+      |     notification = self._receive_notification_type.model_validate(
+      |         message.root.model_dump(
+      |             by_alias=True, mode="json", exclude_none=True
+      |         )
+      |     )
+      |   File "C:\Users\graha\AppData\Roaming\Python\Python313\site-packages\pydantic\main.py", line 627, in model_validate
+      |     return cls.__pydantic_validator__.validate_python(
+      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+      |         obj, strict=strict, from_attributes=from_attributes, context=context
+      |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |     )
+      |     ^
+      | pydantic_core._pydantic_core.ValidationError: 5 validation errors for ClientNotification
+      | ProgressNotification.method
+      |   Input should be 'notifications/progress' [type=literal_error, input_value='cancelled', input_type=str]
+      |     For further information visit https://errors.pydantic.dev/2.10/v/literal_error
+      | ProgressNotification.params.progressToken
+      |   Field required [type=missing, input_value={'requestId': 276, 'reaso... -2: Request timed out'}, input_type=dict]
+      |     For further information visit https://errors.pydantic.dev/2.10/v/missing
+      | ProgressNotification.params.progress
+      |   Field required [type=missing, input_value={'requestId': 276, 'reaso... -2: Request timed out'}, input_type=dict]
+      |     For further information visit https://errors.pydantic.dev/2.10/v/missing
+      | InitializedNotification.method
+      |   Input should be 'notifications/initialized' [type=literal_error, input_value='cancelled', input_type=str]
+      |     For further information visit https://errors.pydantic.dev/2.10/v/literal_error
+      | RootsListChangedNotification.method
+      |   Input should be 'notifications/roots/list_changed' [type=literal_error, input_value='cancelled', input_type=str]
+      |     For further information visit https://errors.pydantic.dev/2.10/v/literal_error
+      +------------------------------------
+
+
